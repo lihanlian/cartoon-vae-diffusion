@@ -1,24 +1,19 @@
 import os
-import random
-import numpy as np
 import torch
 from torchvision.utils import save_image
 from vae import VAE
+from utils import set_seed
 
 # --- 0) Reproducibility ---
 SEED = 42
-random.seed(SEED)
-np.random.seed(SEED)
-torch.manual_seed(SEED)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(SEED)
+set_seed(SEED)
 
 # --- 1) Config ---
 IMAGE_SIZE= 64          # must match training
 Z_DIM     = 512
 CKPT_PATH = f"models/vae/vae_zdim{Z_DIM}.pth"
 OUT_DIR   = f"runs/vae"
-N_SAMPLES = 36           # e.g. 8×8 grid
+N_SAMPLES = 25           # e.g. 8×8 grid
 
 os.makedirs(OUT_DIR, exist_ok=True)
 

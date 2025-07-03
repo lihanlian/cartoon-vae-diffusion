@@ -6,20 +6,12 @@ from torch import nn, optim
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from utils import UnlabeledImageFolder
+from utils import UnlabeledImageFolder, set_seed
 from vae import VAE
 
 # --- 0) Reproducibility ---
 SEED = 42
-random.seed(SEED)
-np.random.seed(SEED)
-torch.manual_seed(SEED)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(SEED)
-
-# make CuDNN deterministic (may slow down slightly)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark     = False
+set_seed(SEED)
 
 # --- 1) Hyperparameters ---
 DATA_ROOT  = "CartoonSet"
