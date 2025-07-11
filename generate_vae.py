@@ -1,6 +1,7 @@
 import os
-import torch
-from torchvision.utils import save_image
+import torch, torchvision
+from PIL import Image
+from torchvision.transforms import ToPILImage
 from vae import VAE
 from utils import set_seed
 
@@ -31,10 +32,10 @@ with torch.no_grad():
     z = torch.randn(N_SAMPLES, Z_DIM, device=device)
     samples = model.dec(z)           # in [-1,1]
     samples = (samples + 1) * 0.5    # to [0,1]
-    save_image(
-        samples,
-        os.path.join(OUT_DIR, "sample_grid.png"),
-        nrow=int(N_SAMPLES**0.5),
-        pad_value=1.0
-    )
+    nrow = round(N_SAMPLES**0.5)
+    grid = torchvision.utils.make_grid(samples, nrow=nrow)
+    to_pil = ToPILImage() 
+    im = to_pil(grid) 
+    im.save(os.path.join(OUT_DIR, "sample_grid.png"))
+
     print(f"→ Wrote samples to {OUT_DIR}/sample_grid.png")
