@@ -19,13 +19,12 @@ This repository is on using **variational autoencoders (VAE)** and **diffusion m
 
 ## Run Locally
 
-Clone the project and go to project directory
+Clone the project and go to project directory. With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, run:
 
 ```bash
-  python3 -m venv env && source env/bin/activate 
-```
-```bash
-  pip install -r requirements.txt
+uv venv --python 3.10
+source .venv/bin/activate
+uv pip install -r requirements.txt
 ```
 
  - run _train_vae.py_ or _train_ddpm.py_ to train a VAE or DDPM respectively.
